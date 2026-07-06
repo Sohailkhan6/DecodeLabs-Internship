@@ -1,0 +1,70 @@
+```java
+import java.util.Scanner;
+
+public class CurrencyConverter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double usdToEur = 0.92;
+        double usdToGbp = 0.78;
+        double usdToJpy = 155.50;
+        double usdToInr = 83.50;
+
+        int baseChoice = scanner.nextInt();
+        int targetChoice = scanner.nextInt();
+        double amount = scanner.nextDouble();
+
+        double amountInUSD = 0.0;
+        String baseCurrencyCode = "";
+
+        switch (baseChoice) {
+            case 1:
+                amountInUSD = amount;
+                baseCurrencyCode = "USD";
+                break;
+            case 2:
+                amountInUSD = amount / usdToEur;
+                baseCurrencyCode = "EUR";
+                break;
+            case 3:
+                amountInUSD = amount / usdToGbp;
+                baseCurrencyCode = "GBP";
+                break;
+            default:
+                return;
+        }
+
+        double convertedAmount = 0.0;
+        String targetCurrencyCode = "";
+
+        switch (targetChoice) {
+            case 1:
+                convertedAmount = amountInUSD;
+                targetCurrencyCode = "USD";
+                break;
+            case 2:
+                convertedAmount = amountInUSD * usdToEur;
+                targetCurrencyCode = "EUR";
+                break;
+            case 3:
+                convertedAmount = amountInUSD * usdToGbp;
+                targetCurrencyCode = "GBP";
+                break;
+            case 4:
+                convertedAmount = amountInUSD * usdToJpy;
+                targetCurrencyCode = "JPY";
+                break;
+            case 5:
+                convertedAmount = amountInUSD * usdToInr;
+                targetCurrencyCode = "INR";
+                break;
+            default:
+                return;
+        }
+
+        System.out.printf("%.2f %s = %.2f %s\n", amount, baseCurrencyCode, convertedAmount, targetCurrencyCode);
+        scanner.close();
+    }
+}
+
+```
