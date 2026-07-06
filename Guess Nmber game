@@ -1,0 +1,73 @@
+import java.util.Scanner;
+import java.util.Random;
+
+public class NumberGame {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.util.Scanner);
+        Scanner scannerInput = new Scanner(System.in);
+        Random random = new Random();
+        
+        boolean playAgain = true;
+        int totalScore = 0;
+        int roundNumber = 1;
+
+        System.out.println("====== WELCOME TO THE NUMBER GUESSING GAME ======");
+
+        while (playAgain) {
+            // Generate a random number between 1 and 100
+            int randomNumber = random.nextInt(100) + 1;
+            int attemptsLeft = 5; // Max 5 attempts per round
+            boolean hasGuessedCorrectly = false;
+
+            System.out.println("\n--- Round " + roundNumber + " ---");
+            System.out.println("I have thought of a number between 1 and 100.");
+            System.out.println("You have " + attemptsLeft + " attempts to guess it.");
+
+            while (attemptsLeft > 0) {
+                System.out.print("\nEnter your guess: ");
+                int userGuess = scannerInput.nextInt();
+                attemptsLeft--;
+
+                if (userGuess == randomNumber) {
+                    System.out.println("🎉 Congratulations! You guessed the correct number!");
+                    // More remaining attempts mean a higher score
+                    int roundScore = (attemptsLeft + 1) * 20; 
+                    totalScore += roundScore;
+                    System.out.println("Score for this round: " + roundScore);
+                    hasGuessedCorrectly = true;
+                    break;
+                } else if (userGuess > randomNumber) {
+                    System.out.println("Too High! (Your guess is larger than the number).");
+                } else {
+                    System.out.println("Too Low! (Your guess is smaller than the number).");
+                }
+
+                if (attemptsLeft > 0) {
+                    System.out.println("Attempts remaining: " + attemptsLeft);
+                }
+            }
+
+            if (!hasGuessedCorrectly) {
+                System.out.println("\n☹️ Game Over! You are out of attempts.");
+                System.out.println("The correct number was: " + randomNumber);
+            }
+
+            System.out.print("\nDo you want to play the next round? (yes/no): ");
+            String response = scannerInput.next().toLowerCase();
+            
+            if (response.equals("yes") || response.equals("y")) {
+                roundNumber++;
+            } else {
+                playAgain = false;
+            }
+        }
+
+        // Display the final score
+        System.out.println("\n================================================");
+        System.out.println("Game Over! Your Total Score is: " + totalScore);
+        System.out.println("Thanks for playing! 👍");
+        System.out.println("================================================");
+        
+        scannerInput.close();
+    }
+}
